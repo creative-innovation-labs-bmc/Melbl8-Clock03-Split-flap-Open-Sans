@@ -1,0 +1,2 @@
+Official source: google/fonts, ofl/opensans/OpenSans[wdth,wght].ttf
+License: SIL Open Font License 1.1
