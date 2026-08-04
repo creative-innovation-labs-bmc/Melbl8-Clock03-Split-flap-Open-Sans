@@ -1,0 +1,21 @@
+{
+  "font": "Open Sans variable, self-hosted",
+  "weight": 800,
+  "native_canvas": [3840, 804],
+  "large_font_px": 322,
+  "small_font_px": 112,
+  "large_glyph_offset_y_px": -10,
+  "small_glyph_offset_y_px": -4,
+  "geometry_basis": {
+    "Open Sans ExtraBold 3 visual_bbox_at_322px": [-108, 128],
+    "required_centre_correction_px": -10,
+    "Open Sans ExtraBold E visual_bbox_at_112px": [-36, 44],
+    "required_small_centre_correction_px": -4
+  },
+  "layout": {
+    "clock_right_edge_px": 3553,
+    "within_canvas": true
+  },
+  "external_google_font_request_removed": true,
+  "font_license_included": true
+}
