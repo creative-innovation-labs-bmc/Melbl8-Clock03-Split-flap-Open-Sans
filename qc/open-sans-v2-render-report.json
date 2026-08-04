@@ -1,0 +1,47 @@
+{
+  "large_3": {
+    "white_pixel_count": 22200,
+    "visible_bbox_y": [
+      156,
+      391
+    ],
+    "visual_centre_y": 273.5,
+    "hinge_y": 275,
+    "centre_offset_from_hinge_px": -1.5,
+    "pixels_above_hinge_band": 944,
+    "pixels_below_hinge_band": 116,
+    "crosses_hinge": true
+  },
+  "small_E": {
+    "white_pixel_count": 2431,
+    "visible_bbox_y": [
+      234,
+      313
+    ],
+    "visual_centre_y": 273.5,
+    "hinge_y": 275,
+    "centre_offset_from_hinge_px": -1.5,
+    "pixels_above_hinge_band": 468,
+    "pixels_below_hinge_band": 20,
+    "crosses_hinge": true
+  },
+  "production": {
+    "production": {
+      "stage": {
+        "width": 3840,
+        "height": 804
+      },
+      "flapCount": 12,
+      "allFlapsContained": true,
+      "fontLoaded": true,
+      "resources": [
+        "http://127.0.0.1:4173/style.css?v=opensans2",
+        "http://127.0.0.1:4173/clock.js?v=opensans2",
+        "http://127.0.0.1:4173/mobile-fit.js?v=opensans2",
+        "http://127.0.0.1:4173/OpenSans-Variable.ttf?v=opensans2"
+      ]
+    },
+    "errors": []
+  },
+  "passed": true
+}

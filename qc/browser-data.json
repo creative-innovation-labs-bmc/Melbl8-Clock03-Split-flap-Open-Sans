@@ -1,0 +1,18 @@
+{
+  "production": {
+    "stage": {
+      "width": 3840,
+      "height": 804
+    },
+    "flapCount": 12,
+    "allFlapsContained": true,
+    "fontLoaded": true,
+    "resources": [
+      "http://127.0.0.1:4173/style.css?v=opensans2",
+      "http://127.0.0.1:4173/clock.js?v=opensans2",
+      "http://127.0.0.1:4173/mobile-fit.js?v=opensans2",
+      "http://127.0.0.1:4173/OpenSans-Variable.ttf?v=opensans2"
+    ]
+  },
+  "errors": []
+}
