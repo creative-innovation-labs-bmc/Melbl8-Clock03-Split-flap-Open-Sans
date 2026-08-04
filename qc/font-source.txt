@@ -1,2 +1,4 @@
-Official source: google/fonts, ofl/opensans/OpenSans[wdth,wght].ttf
-License: SIL Open Font License 1.1
+Official source: https://github.com/google/fonts/tree/main/ofl/opensans
+Font file: OpenSans[wdth,wght].ttf
+Local production filename: OpenSans-Variable.ttf
+Licence: SIL Open Font License 1.1, included as OFL.txt

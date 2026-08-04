@@ -1,3 +1,12 @@
+@font-face {
+  font-family: "Open Sans Local";
+  src: url("./OpenSans-Variable.ttf?v=opensans2") format("truetype-variations");
+  font-style: normal;
+  font-weight: 300 800;
+  font-stretch: 75% 100%;
+  font-display: block;
+}
+
 :root {
   --stage-w: 3840px;
   --stage-h: 804px;
@@ -7,8 +16,8 @@
   --flip-half-ms: 300ms;
 
   /* Final layout tuning */
-  --time-digit-y: 16px;
-  --location-day-y: 4px;
+  --time-digit-y: -10px;
+  --location-day-y: -4px;
 
   /* Flap colour treatment to keep */
   --panel-top: #3f3f3c;
@@ -30,7 +39,7 @@ html, body {
 
 body {
   color: var(--text);
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-family: "Open Sans Local", Arial, Helvetica, sans-serif;
   font-synthesis: none;
 }
 
@@ -125,7 +134,7 @@ body {
   --font-size: 112px;
   --font-offset-y: var(--location-day-y);
   --letter-spacing: 0.015em;
-  --font-weight: 700;
+  --font-weight: 800;
 }
 
 .flap.big {
@@ -134,7 +143,7 @@ body {
   --font-size: 322px;
   --font-offset-y: var(--time-digit-y);
   --letter-spacing: -0.045em;
-  --font-weight: 600;
+  --font-weight: 800;
 }
 
 .panel,
@@ -210,7 +219,7 @@ body {
   transform: translateY(var(--font-offset-y));
   line-height: 1;
   color: var(--text);
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-family: "Open Sans Local", Arial, Helvetica, sans-serif;
   font-size: var(--font-size);
   font-weight: var(--font-weight);
   letter-spacing: var(--letter-spacing);
@@ -219,6 +228,7 @@ body {
   font-synthesis: none;
   font-variant-numeric: lining-nums tabular-nums;
   font-feature-settings: "lnum" 1, "tnum" 1, "kern" 1;
+  font-variation-settings: "wght" 800, "wdth" 100;
   text-shadow: 0 2px 0 rgba(0,0,0,0.14);
 }
 

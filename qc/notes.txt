@@ -1,1 +1,0 @@
-Open Sans ExtraBold split alignment target: large y -10px, small y -4px.
