@@ -1,0 +1,134 @@
+name: Build Open Sans clock
+
+on:
+  push:
+    paths:
+      - '.github/workflows/build-open-sans.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the Open Sans clock
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          SOURCE='https://raw.githubusercontent.com/creative-innovation-labs-bmc/Melbl8-Clock03-Split-flap/main'
+          curl -fsSL "$SOURCE/clock-live-launch.js" -o clock.js
+          curl -fsSL "$SOURCE/style.css" -o style.css
+          curl -fsSL "$SOURCE/mobile-fit.js" -o mobile-fit.js
+
+          cat > index.html <<'HTML'
+          <!doctype html>
+          <html lang="en-AU">
+          <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+            <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+            <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+            <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+            <meta name="referrer" content="no-referrer" />
+            <title>Melbourne Split-Flap Clock — Open Sans</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+            <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700&display=swap" rel="stylesheet" />
+            <link rel="stylesheet" href="style.css?v=opensans1" />
+          </head>
+          <body>
+            <div id="viewport" aria-label="Melbourne split-flap clock">
+              <main id="stage">
+                <section id="locationDay" aria-label="Location and day">
+                  <div class="mini-group" id="location-group" aria-label="Location code"></div>
+                  <div class="mini-group" id="weekday-group" aria-label="Day"></div>
+                </section>
+                <section id="clock" aria-label="Current time">
+                  <div class="pair" id="hours"></div>
+                  <div class="colon" aria-hidden="true"><span></span><span></span></div>
+                  <div class="pair" id="minutes"></div>
+                  <div class="colon" aria-hidden="true"><span></span><span></span></div>
+                  <div class="pair" id="seconds"></div>
+                </section>
+              </main>
+            </div>
+            <script src="clock.js?v=opensans1"></script>
+            <script src="mobile-fit.js?v=opensans1"></script>
+          </body>
+          </html>
+          HTML
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('style.css')
+          css = path.read_text()
+          css = re.sub(r'@font-face\s*\{.*?\}\s*', '', css, count=1, flags=re.S)
+          css = css.replace('--time-digit-y: 27px;', '--time-digit-y: 16px;')
+          css = css.replace('--location-day-y: 10px;', '--location-day-y: 4px;')
+          css = css.replace('"MP-B", Arial, Helvetica, sans-serif', '"Open Sans", Arial, Helvetica, sans-serif')
+          css = css.replace('--font-size: 98px;', '--font-size: 112px;')
+          css = css.replace('--letter-spacing: 0.035em;', '--letter-spacing: 0.015em;\n  --font-weight: 700;')
+          css = css.replace('--font-size: 310px;', '--font-size: 322px;')
+          css = css.replace('--letter-spacing: -0.035em;', '--letter-spacing: -0.045em;\n  --font-weight: 600;')
+          css = css.replace('font-weight: normal;\n  letter-spacing: var(--letter-spacing);', 'font-weight: var(--font-weight);\n  letter-spacing: var(--letter-spacing);')
+          path.write_text(css)
+
+          assert 'Open Sans' in css
+          assert 'MP-B' not in css
+          assert '--stage-w: 3840px' in css
+          assert '--stage-h: 804px' in css
+          assert '--font-size: 322px' in css
+          assert '--font-size: 112px' in css
+          PY
+
+          cat > robots.txt <<'ROBOTS'
+          User-agent: *
+          Disallow: /
+          ROBOTS
+
+          cat > README.md <<'README'
+          # Melbourne Split-Flap Clock — Open Sans
+
+          Separate Open Sans build of the Melbourne 3840 × 804 split-flap clock.
+
+          - Open Sans 600/700 via Google Fonts.
+          - Live time continues during the entrance animation.
+          - Unchanged HH/MM/SS flaps remain still.
+          - Portrait and landscape mobile preview scaling.
+          - Vanilla HTML, CSS and JavaScript for NVIDIA Shield signage playback.
+          - Search indexing blocked through metadata and `robots.txt`.
+
+          Query options: `?noanim=1`, `?noboot=1`, `?rotate=0`, or timezone/city overrides such as `?tz=Australia/Sydney&city=SYD`.
+          README
+
+          touch .nojekyll
+          rm -f styles.css app.js .factory-complete
+          node --check clock.js
+
+          python3 - <<'PY'
+          from pathlib import Path
+          html = Path('index.html').read_text()
+          css = Path('style.css').read_text()
+          assert 'Open+Sans' in html
+          assert 'clock.js?v=opensans1' in html
+          assert 'mobile-fit.js?v=opensans1' in html
+          assert 'noindex, nofollow, noarchive' in html
+          assert '#clock' in css and '#locationDay' in css
+          # Existing fixed layout: 988px start + 2565px clock width = 3553px, safely within 3840px.
+          assert 988 + 2565 <= 3840
+          PY
+
+          rm -f .github/workflows/build-open-sans.yml
+
+          git config user.name 'creative-innovation-labs-bmc'
+          git config user.email 'creative-innovation-labs-bmc@users.noreply.github.com'
+          git add -A
+          git commit -m 'Launch Open Sans split-flap clock'
+          git push
